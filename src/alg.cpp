@@ -46,7 +46,6 @@ int countPairs2(int *arr, int len, int value) {
             right--;
         }
     }
-    
     return count;
 }
 int countPairs3(int *arr, int len, int value) {
@@ -77,7 +76,6 @@ int countPairs3(int *arr, int len, int value) {
             }
         }
         last = right;
-        
         if (first <= last && arr[first] == target && arr[last] == target) {
             count += (last - first + 1);
         }
