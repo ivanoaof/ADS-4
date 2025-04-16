@@ -30,14 +30,17 @@ int countPairs2(int *arr, int len, int value) {
                 int right_val = arr[right];
                 int left_count = 0;
                 int right_count = 0;
+                
                 while (left < len && arr[left] == left_val) {
                     left++;
                     left_count++;
                 }
+                
                 while (right >= 0 && arr[right] == right_val) {
                     right--;
                     right_count++;
                 }
+                
                 count += left_count * right_count;
             }
         } else if (sum < value) {
@@ -46,39 +49,44 @@ int countPairs2(int *arr, int len, int value) {
             right--;
         }
     }
+    
     return count;
 }
+
+int binarySearchCount(int *arr, int len, int left, int right, int target) {
+    int first_pos = -1, last_pos = -1;
+    int low = left, high = right;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] >= target) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    first_pos = low;
+    low = left, high = right;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] <= target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    last_pos = high;
+
+    if (first_pos <= last_pos && arr[first_pos] == target && arr[last_pos] == target) {
+        return last_pos - first_pos + 1;
+    }
+    return 0;
+}
+
 int countPairs3(int *arr, int len, int value) {
     int count = 0;
     for (int i = 0; i < len - 1; ++i) {
         int target = value - arr[i];
-        int left = i + 1;
-        int right = len - 1;
-        int first = -1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (arr[mid] >= target) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
-        }
-        first = left;
-        left = i + 1;
-        right = len - 1;
-        int last = -1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (arr[mid] <= target) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-        last = right;
-        if (first <= last && arr[first] == target && arr[last] == target) {
-            count += (last - first + 1);
-        }
+        count += binarySearchCount(arr, len, i + 1, len - 1, target);
     }
     return count;
 }
