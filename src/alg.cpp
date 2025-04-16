@@ -70,8 +70,7 @@ int binarySearchCount(int *arr, int len, int left, int right, int target) {
         }
     }
     last_pos = high;
-    if (first_pos <= last_pos && arr[first_pos] == 
-        target && arr[last_pos] == target) {
+    if (first_pos <= last_pos && arr[first_pos] == target && arr[last_pos] == target) {
         return last_pos - first_pos + 1;
     }
     return 0;
