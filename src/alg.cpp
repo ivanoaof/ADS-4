@@ -38,3 +38,6 @@ int countPairs3(int *arr, int len, int value) {
       continue;
     while (left <= right) {
       int mid = left + (right - left) / 2;
+    }
+  }
+}
